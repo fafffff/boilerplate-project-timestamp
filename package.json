@@ -1,16 +1,22 @@
 {
   "name": "fcc-api-projects-boilerplate",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An FCC Backend Challenge",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongoose": "^8.9.0"
+    "mongoose": "^8.9.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^3.1.9"
   },
   "repository": {
     "type": "git",
@@ -26,8 +32,5 @@
     "express",
     "freeCodeCamp"
   ],
-  "license": "MIT",
-  "devDependencies": {
-    "nodemon": "^3.1.9"
-  }
+  "license": "MIT"
 }

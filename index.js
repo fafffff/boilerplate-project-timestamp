@@ -1,32 +1,21 @@
-// index.js
-// where your node app starts
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const timestampRoute = require('./routes/timestampRoutes');
 
-// init project
-var express = require('express');
-var app = express();
+const cors = require("cors");
+const path = require("path");
 
-// enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
-// so that your API is remotely testable by FCC 
-var cors = require('cors');
-app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
+const app = express();
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected To Mongo Db"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
-// http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + '/views/index.html');
-});
+app.use('/routes', timestampRoute);
+app.use(express.static(path.join(__dirname, 'public')));
 
-
-// your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
-});
-
-
-
-// Listen on port set in environment variable or default to 3000
-var listener = app.listen(process.env.PORT || 3000, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server running on port ${process.env.PORT || 3000}`);
 });
